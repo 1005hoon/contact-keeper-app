@@ -7,6 +7,10 @@ app.get('/', (req, res) => {
   });
 });
 
+// Router 연결하기
+app.use('/api/v1/users', require('./routes/userRouter'));
+app.use('/api/v1/auths', require('./routes/authRouter'));
+app.use('/api/v1/contacts', require('./routes/contactRouter'));
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
