@@ -3,14 +3,21 @@ const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const config = require('config');
 const jwt = require('jsonwebtoken');
+const auth = require('../middleware/auth');
 
 const User = require('../models/User');
 
 // @route   GET api/v/auth
 // @desc    로그인 된 회원 정보 가져오기
 // @access  Private
-router.get('/', (req, res) => {
-  res.send('로그인 유저 정보 가저오기');
+router.get('/', auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+    res.json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server error');
+  }
 });
 
 // @route   POST api/v/auth
