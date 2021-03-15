@@ -10,7 +10,7 @@ const connectDB = async () => {
     useUnifiedTopology: true,
   });
 
-  console.log(`MONGO :: ${db.connection.name}`);
+  console.log(`DB Connected :: ${db.connection.name}`);
 };
 
 module.exports = connectDB;
